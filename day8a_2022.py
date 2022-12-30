@@ -19,6 +19,8 @@ with open("2022_day8_input.txt") as f:
 # data[y][x] = yth row, xth column
 data = [i.strip() for i in content]
 
+pprint(data)
+
 def get_north(grid,row,col):
     '''
     Return the values north of the point in the grid
@@ -50,7 +52,7 @@ def get_south(grid,row,col):
     Return the values south of the point in the grid
     '''
     x = []
-    for i in range(row+1,98):
+    for i in range(row+1,99):
         x.append(grid[i][col])
 
     return x
@@ -103,7 +105,7 @@ def get_east(grid,row,col):
     Return the values east of the point in the grid
     '''
     x = []
-    for i in range(col+1,98):
+    for i in range(col+1,99):
         x.append(grid[row][i])
 
     return x
@@ -129,51 +131,10 @@ def visible_any(north,east,south,west):
     If visible from any direction returns True. Only False if visible from
     no direction
     '''
-    v = 0
-    if north:
-        v += 1
-
-    if east:
-        v += 1
-
-    if south:
-        v += 1
-
-    if west:
-        v += 1
-
-    if v == 0:
-        return False
-    else:
+    if (north | east | south | west):
         return True
-
+    return False
     
-# ----- The loop ----- #
-#pprint(data)
-
-#interior_visibles = 0
-#for i in range(1,97):
- #   for j in range(1,97):
-  #      x = data[i][j]
-   #     
-    #    n = visible_north(data,i,j,x)
-     #   e = visible_east(data,i,j,x)
-      #  s = visible_south(data,i,j,x)
-       # w = visible_west(data,i,j,x)
-
-      
-        #if visible_any(n,e,s,w):
-         #   interior_visibles += 1
-            
-        
-            
-#print('Total interior visible: ' + str(interior_visibles))
-#print('Total interior hiddens: ' + str(interior_hiddens))
-#one_row = len(data[0])
-#num_row = len(data)
-#print('Total possilbe squares: ' + str(one_row * num_row))
-#print('Visibles + Hiddens: ' + str(interior_visibles + interior_hiddens))
-
 visibles = 0
 
 for i in range(0,len(data)): #rows
@@ -185,7 +146,7 @@ for i in range(0,len(data)): #rows
         if i == 0 or i == 98:
             visibles += 1
             pass
-        elif j ==0 or j == 98:
+        elif j == 0 or j == 98:
             visibles += 1
             pass
         else:
